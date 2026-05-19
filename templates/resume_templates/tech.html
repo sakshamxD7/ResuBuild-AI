@@ -1,0 +1,70 @@
+<div class="template-tech" style="padding: 70px; font-family: 'JetBrains Mono', monospace; color: #2E2620; line-height: 1.6; background-color: #F7F3EC;">
+    <header style="border: 4px solid #2E2620; padding: 40px; margin-bottom: 50px; background: #fff; box-shadow: 10px 10px 0px rgba(46, 38, 32, 0.1);">
+        <h1 style="font-size: 48px; margin: 0; font-weight: bold;">[{{ personalInfo.fullName.upper() }}]</h1>
+        <p style="font-size: 26px; margin: 15px 0 25px 0; color: #9B7B5A;">// {{ personalInfo.jobTitle }}</p>
+        <div style="font-size: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; border-top: 3px solid #2E2620; padding-top: 25px;">
+            <div>LOC: {{ personalInfo.location }}</div>
+            <div>EML: {{ personalInfo.email }}</div>
+            {% if personalInfo.github %}<div>GIT: {{ personalInfo.github }}</div>{% endif %}
+            {% if personalInfo.linkedin %}<div>LNK: {{ personalInfo.linkedin }}</div>{% endif %}
+        </div>
+    </header>
+
+    <div style="display: grid; gap: 50px;">
+        <section>
+            <h2 style="font-size: 20px; font-weight: bold; color: #9B7B5A; margin-bottom: 15px;">root@summary:~$</h2>
+            <p style="font-size: 17px; margin: 0; background: #fff; padding: 25px; border-left: 8px solid #2E2620; line-height: 1.8;">{{ summary }}</p>
+        </section>
+
+        <section>
+            <h2 style="font-size: 20px; font-weight: bold; color: #9B7B5A; margin-bottom: 15px;">root@experience:~$</h2>
+            {% for exp in experience %}
+                <div style="margin-bottom: 45px; padding-left: 30px; border-left: 3px dashed #D8CCBA;">
+                    <div style="font-weight: bold; font-size: 22px; color: #2E2620;">{{ exp.company }} >> {{ exp.role }}</div>
+                    <div style="font-size: 16px; margin: 8px 0 15px 0; color: #777;">TIME_PERIOD: "{{ exp.duration }}"</div>
+                    <p style="font-size: 16px; white-space: pre-line; margin: 0; line-height: 1.7; color: #444;">{{ exp.bullets }}</p>
+                </div>
+            {% endfor %}
+        </section>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 50px;">
+            <section>
+                <h2 style="font-size: 20px; font-weight: bold; color: #9B7B5A; margin-bottom: 15px;">root@skills:~$</h2>
+                <div style="font-size: 16px; background: #2E2620; color: #EDE7D9; padding: 25px; line-height: 2.0; border-radius: 4px;">
+                    {<br/>
+                    &nbsp;&nbsp;"skills": [<br/>
+                    {% for s in skills.split(',') %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;"{{ s.strip() }}"{% if not loop.last %},{% endif %}<br/>
+                    {% endfor %}
+                    &nbsp;&nbsp;]<br/>
+                    }
+                </div>
+            </section>
+            <section>
+                <h2 style="font-size: 20px; font-weight: bold; color: #9B7B5A; margin-bottom: 15px;">root@education:~$</h2>
+                {% for edu in education %}
+                    <div style="margin-bottom: 30px; font-size: 17px; background: #fff; padding: 20px; border: 1px solid #D8CCBA;">
+                        <span style="font-weight: bold; font-size: 19px;">{{ edu.degree }}</span><br/>
+                        <span style="color: #666; display: block; margin-top: 8px;">{{ edu.institution }}</span>
+                        <span style="color: #9B7B5A; font-size: 15px;">GRAD_YEAR: {{ edu.year }}</span>
+                    </div>
+                {% endfor %}
+            </section>
+        </div>
+
+        {% if projects and projects|length > 0 %}
+        <section>
+            <h2 style="font-size: 20px; font-weight: bold; color: #9B7B5A; margin-bottom: 15px;">root@projects:~$</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                {% for project in projects %}
+                    <div style="border: 2px solid #2E2620; padding: 25px; background: #fff; position: relative;">
+                        <div style="font-weight: bold; font-size: 18px; text-decoration: underline;">{{ project.name }}</div>
+                        <div style="font-size: 14px; color: #9B7B5A; margin: 10px 0;"># {{ project.tech }}</div>
+                        <p style="font-size: 16px; margin: 0; line-height: 1.6;">{{ project.description }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+    </div>
+</div>

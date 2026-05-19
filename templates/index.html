@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ResuBuild AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>window.GEMINI_API_KEY = "{{ gemini_key }}";</script>
+  </head>
+  <body>
+
+    <!-- Top Navbar -->
+    <nav class="navbar">
+      <div class="navbar-brand">
+        <div class="navbar-logo">R</div>
+        <h1 class="navbar-title">ResuBuild AI</h1>
+      </div>
+      <div>
+        <button class="btn-download" id="btn-download">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span>Download PDF</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Main Layout -->
+    <main class="main-layout">
+
+      <!-- Left Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-inner">
+
+          <!-- Template Picker -->
+          <section>
+            <h3 class="section-title">Select Template</h3>
+            <div class="template-grid" id="template-grid"></div>
+          </section>
+
+          <!-- Personal Info -->
+          <section>
+            <h3 class="section-title">Personal Information</h3>
+            <div class="personal-info-section">
+              <div class="input-group">
+                <input class="art-input" type="text" placeholder="Full Name" id="input-fullName" />
+              </div>
+              <div class="input-group">
+                <input class="art-input" type="text" placeholder="Job Title" id="input-jobTitle" />
+              </div>
+              <div class="input-row">
+                <div class="input-group">
+                  <input class="art-input" type="text" placeholder="Email" id="input-email" />
+                </div>
+                <div class="input-group">
+                  <input class="art-input" type="text" placeholder="Phone" id="input-phone" />
+                </div>
+              </div>
+              <div class="input-row">
+                <div class="input-group">
+                  <input class="art-input" type="text" placeholder="Location" id="input-location" />
+                </div>
+                <div class="input-group">
+                  <input class="art-input" type="text" placeholder="LinkedIn" id="input-linkedin" />
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Professional Summary -->
+          <section>
+            <div class="section-header">
+              <span class="section-label">Professional Summary</span>
+              <button class="btn-enhance" id="btn-enhance-summary">AI Enhance</button>
+            </div>
+            <textarea class="art-textarea textarea-summary" id="textarea-summary"></textarea>
+          </section>
+
+          <!-- Work Experience -->
+          <section>
+            <div class="section-header">
+              <span class="section-label">Work Experience</span>
+              <button class="btn-add" id="btn-add-experience">+ Add Entry</button>
+            </div>
+            <div class="dynamic-list" id="experience-list"></div>
+          </section>
+
+          <!-- Skills -->
+          <section>
+            <div class="section-header">
+              <span class="section-label">Skills</span>
+              <button class="btn-enhance" id="btn-enhance-skills">AI Optimize List</button>
+            </div>
+            <textarea class="art-textarea textarea-skills" id="textarea-skills" placeholder="React, Figma, UX Research..."></textarea>
+          </section>
+
+          <!-- Education -->
+          <section>
+            <div class="section-header">
+              <span class="section-label">Education</span>
+              <button class="btn-add" id="btn-add-education">+ Add Entry</button>
+            </div>
+            <div class="dynamic-list" id="education-list"></div>
+          </section>
+
+          <!-- Projects -->
+          <section>
+            <div class="section-header">
+              <span class="section-label">Projects</span>
+              <button class="btn-add" id="btn-add-projects">+ Add Entry</button>
+            </div>
+            <div class="dynamic-list" id="projects-list"></div>
+          </section>
+
+          <div class="sidebar-bottom-spacer"></div>
+        </div>
+      </aside>
+
+      <!-- Right Panel - Live Preview -->
+      <div class="preview-panel">
+        <div class="preview-status-bar">
+          <div class="preview-status-pill" id="status-pill">
+            <div class="status-dot" id="status-dot"></div>
+            <span id="status-text">Live Preview Active</span>
+          </div>
+        </div>
+        <div id="capture-container">
+          <div class="preview-page" id="preview-page"></div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+  </body>
+</html>

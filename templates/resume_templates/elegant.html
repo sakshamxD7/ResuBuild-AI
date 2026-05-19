@@ -1,0 +1,59 @@
+<div class="template-elegant" style="font-family: 'Cormorant Garamond', serif; color: #2E2620; line-height: 1.6; padding: 50px;">
+    <header style="text-align: center; border-bottom: 4px solid #D8CCBA; padding-bottom: 30px; margin-bottom: 40px;">
+        <h1 style="font-size: 54px; margin: 0; text-transform: uppercase; letter-spacing: 4px;">{{ personalInfo.fullName }}</h1>
+        <p style="font-size: 26px; margin: 10px 0; font-style: italic; color: #9B7B5A;">{{ personalInfo.jobTitle }}</p>
+        <div style="font-size: 16px; margin-top: 20px; display: flex; justify-content: center; gap: 30px; font-family: 'DM Sans', sans-serif;">
+            <span>{{ personalInfo.email }}</span>
+            <span>{{ personalInfo.phone }}</span>
+            <span>{{ personalInfo.location }}</span>
+        </div>
+    </header>
+
+    <section style="margin-bottom: 40px;">
+        <h2 style="font-size: 20px; text-transform: uppercase; letter-spacing: 1.5px; border-bottom: 1px solid #EDE7D9; padding-bottom: 8px; margin-bottom: 20px; color: #9B7B5A;">Professional Summary</h2>
+        <p style="font-size: 17px; text-align: justify; line-height: 1.8;">{{ summary }}</p>
+    </section>
+
+    <section style="margin-bottom: 40px;">
+        <h2 style="font-size: 20px; text-transform: uppercase; letter-spacing: 1.5px; border-bottom: 1px solid #EDE7D9; padding-bottom: 8px; margin-bottom: 20px; color: #9B7B5A;">Work Experience</h2>
+        {% for exp in experience %}
+            <div style="margin-bottom: 35px;">
+                <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 19px; margin-bottom: 5px;">
+                    <span>{{ exp.role }}</span>
+                    <span style="font-style: italic; font-weight: normal; font-size: 15px;">{{ exp.duration }}</span>
+                </div>
+                <div style="font-size: 17px; font-style: italic; color: #9B7B5A; margin-bottom: 12px;">{{ exp.company }}</div>
+                <p style="font-size: 16px; white-space: pre-line; margin: 0; line-height: 1.7;">{{ exp.bullets }}</p>
+            </div>
+        {% endfor %}
+    </section>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 50px;">
+        <section>
+            <h2 style="font-size: 20px; text-transform: uppercase; letter-spacing: 1.5px; border-bottom: 1px solid #EDE7D9; padding-bottom: 8px; margin-bottom: 20px; color: #9B7B5A;">Education</h2>
+            {% for edu in education %}
+                <div style="margin-bottom: 20px;">
+                    <div style="font-weight: bold; font-size: 18px;">{{ edu.degree }}</div>
+                    <div style="font-size: 16px; margin: 4px 0;">{{ edu.institution }}</div>
+                    <div style="font-size: 15px; font-style: italic; color: #9B7B5A;">{{ edu.year }} {% if edu.grade %}| {{ edu.grade }}{% endif %}</div>
+                </div>
+            {% endfor %}
+        </section>
+        <section>
+            <h2 style="font-size: 20px; text-transform: uppercase; letter-spacing: 1.5px; border-bottom: 1px solid #EDE7D9; padding-bottom: 8px; margin-bottom: 20px; color: #9B7B5A;">Skills</h2>
+            <p style="font-size: 16px; line-height: 1.9;">{{ skills }}</p>
+        </section>
+    </div>
+
+    {% if projects and projects|length > 0 %}
+    <section style="margin-top: 40px;">
+        <h2 style="font-size: 20px; text-transform: uppercase; letter-spacing: 1.5px; border-bottom: 1px solid #EDE7D9; padding-bottom: 8px; margin-bottom: 20px; color: #9B7B5A;">Projects</h2>
+        {% for project in projects %}
+            <div style="margin-bottom: 20px;">
+                <div style="font-weight: bold; font-size: 17px;">{{ project.name }} <span style="font-weight: normal; font-size: 14px; font-style: italic; color: #9B7B5A;">— {{ project.tech }}</span></div>
+                <p style="font-size: 16px; margin: 8px 0; line-height: 1.6;">{{ project.description }}</p>
+            </div>
+        {% endfor %}
+    </section>
+    {% endif %}
+</div>

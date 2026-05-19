@@ -1,0 +1,48 @@
+<div class="template-minimal" style="padding: 70px; font-family: 'DM Sans', sans-serif; color: #2E2620; line-height: 1.6;">
+    <header style="margin-bottom: 50px;">
+        <h1 style="font-size: 54px; font-weight: 300; margin: 0; letter-spacing: -2px;">{{ personalInfo.fullName }}</h1>
+        <p style="font-size: 26px; color: #9B7B5A; margin: 15px 0 25px 0; letter-spacing: 3px; text-transform: uppercase;">{{ personalInfo.jobTitle }}</p>
+        <div style="font-size: 16px; color: #888; display: flex; flex-wrap: wrap; gap: 30px; border-top: 1px solid #f0f0f0; padding-top: 25px;">
+            <span>{{ personalInfo.email }}</span>
+            <span>{{ personalInfo.phone }}</span>
+            <span>{{ personalInfo.location }}</span>
+            {% if personalInfo.github %}<span>{{ personalInfo.github }}</span>{% endif %}
+        </div>
+    </header>
+
+    <div style="display: grid; gap: 60px;">
+        <section>
+            <h2 style="font-size: 16px; text-transform: uppercase; letter-spacing: 3px; color: #bbb; margin-bottom: 25px;">Summary</h2>
+            <p style="font-size: 18px; margin: 0; line-height: 1.8;">{{ summary }}</p>
+        </section>
+
+        <section>
+            <h2 style="font-size: 16px; text-transform: uppercase; letter-spacing: 3px; color: #bbb; margin-bottom: 30px;">Experience</h2>
+            {% for exp in experience %}
+                <div style="margin-bottom: 45px;">
+                    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px;">
+                        <span style="font-size: 22px; font-weight: 500;">{{ exp.role }} / {{ exp.company }}</span>
+                        <span style="font-size: 15px; color: #bbb;">{{ exp.duration }}</span>
+                    </div>
+                    <p style="font-size: 17px; margin: 0; color: #444; line-height: 1.7; white-space: pre-line;">{{ exp.bullets }}</p>
+                </div>
+            {% endfor %}
+        </section>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px;">
+            <section>
+                <h2 style="font-size: 16px; text-transform: uppercase; letter-spacing: 3px; color: #bbb; margin-bottom: 25px;">Education</h2>
+                {% for edu in education %}
+                    <div style="margin-bottom: 25px; font-size: 17px;">
+                        <div style="font-weight: 500; font-size: 19px;">{{ edu.degree }}</div>
+                        <div style="color: #777; margin-top: 5px;">{{ edu.institution }}, {{ edu.year }}</div>
+                    </div>
+                {% endfor %}
+            </section>
+            <section>
+                <h2 style="font-size: 16px; text-transform: uppercase; letter-spacing: 3px; color: #bbb; margin-bottom: 25px;">Skills</h2>
+                <p style="font-size: 17px; margin: 0; line-height: 2;">{{ skills }}</p>
+            </section>
+        </div>
+    </div>
+</div>
