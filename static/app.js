@@ -1,6 +1,3 @@
-// ============================================================
-// Default Data (mirrors DEFAULT_DATA in App.tsx)
-// ============================================================
 const DEFAULT_DATA = {
   personalInfo: {
     fullName:  'John Wick',
@@ -50,9 +47,7 @@ const TEMPLATES = [
   { id: 'tech',      name: 'Tech'      },
 ];
 
-// ============================================================
-// Application State (mirrors useState hooks in App.tsx)
-// ============================================================
+
 const state = {
   data:             JSON.parse(JSON.stringify(DEFAULT_DATA)),
   selectedTemplate: 'elegant',
@@ -63,18 +58,14 @@ const state = {
 
 let debounceTimer = null;
 
-// ============================================================
-// DOM References
-// ============================================================
+
 const previewPage    = document.getElementById('preview-page');
 const statusPill     = document.getElementById('status-pill');
 const statusDot      = document.getElementById('status-dot');
 const statusText     = document.getElementById('status-text');
 const toastContainer = document.getElementById('toast-container');
 
-// ============================================================
-// Inline SVG Icons (replaces lucide-react imports)
-// ============================================================
+
 const ICONS = {
   trash: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>`,
   trashSm: `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>`,
@@ -85,9 +76,7 @@ const ICONS = {
   alert: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`
 };
 
-// ============================================================
-// Utility — HTML escape (prevents XSS in innerHTML templates)
-// ============================================================
+
 function escHtml(str) {
   if (!str) return '';
   return String(str)
@@ -98,9 +87,7 @@ function escHtml(str) {
     .replace(/'/g,  '&#39;');
 }
 
-// ============================================================
-// Toast System (mirrors addToast in App.tsx)
-// ============================================================
+
 function addToast(message, type = 'success') {
   const id   = Date.now();
   const toast = document.createElement('div');
@@ -118,9 +105,7 @@ function addToast(message, type = 'success') {
   }, 3000);
 }
 
-// ============================================================
-// Preview — loading state + API call (mirrors updatePreview)
-// ============================================================
+
 function setLoading(val) {
   state.isLoading = val;
 
@@ -161,7 +146,7 @@ async function updatePreview(currentData, template) {
   }
 }
 
-// Debounce wrapper (mirrors useEffect with 400ms debounce in App.tsx)
+
 function schedulePreview() {
   if (debounceTimer) clearTimeout(debounceTimer);
   debounceTimer = setTimeout(() => {
@@ -169,9 +154,6 @@ function schedulePreview() {
   }, 400);
 }
 
-// ============================================================
-// Template Picker
-// ============================================================
 function renderTemplates() {
   const grid   = document.getElementById('template-grid');
   grid.innerHTML = TEMPLATES.map(t => `
@@ -190,9 +172,7 @@ document.getElementById('template-grid').addEventListener('click', e => {
   schedulePreview();
 });
 
-// ============================================================
-// Personal Info Inputs (mirrors handlePersonalInfo)
-// ============================================================
+
 function initPersonalInfoInputs() {
   ['fullName', 'jobTitle', 'email', 'phone', 'location', 'linkedin'].forEach(field => {
     const input = document.getElementById(`input-${field}`);
@@ -205,9 +185,7 @@ function initPersonalInfoInputs() {
   });
 }
 
-// ============================================================
-// Summary
-// ============================================================
+
 function initSummary() {
   const textarea = document.getElementById('textarea-summary');
   textarea.value = state.data.summary;
@@ -217,9 +195,7 @@ function initSummary() {
   });
 }
 
-// ============================================================
-// Skills
-// ============================================================
+
 function initSkills() {
   const textarea = document.getElementById('textarea-skills');
   textarea.value = state.data.skills;
@@ -229,10 +205,7 @@ function initSkills() {
   });
 }
 
-// ============================================================
-// Experience List — render + event delegation
-// (mirrors handleAddField / handleRemoveField / handleArrayField)
-// ============================================================
+
 function renderExperienceList() {
   const list = document.getElementById('experience-list');
   if (!state.data.experience.length) {
@@ -277,7 +250,7 @@ function renderExperienceList() {
   `).join('');
 }
 
-// Input delegation — experience fields
+
 document.getElementById('experience-list').addEventListener('input', e => {
   const el    = e.target;
   const expId = el.dataset.exp;
@@ -290,7 +263,7 @@ document.getElementById('experience-list').addEventListener('input', e => {
   }
 });
 
-// Click delegation — remove + enhance
+
 document.getElementById('experience-list').addEventListener('click', e => {
   const removeBtn = e.target.closest('[data-remove="experience"]');
   if (removeBtn) {
@@ -310,9 +283,7 @@ document.getElementById('btn-add-experience').addEventListener('click', () => {
   schedulePreview();
 });
 
-// ============================================================
-// Education List — render + event delegation
-// ============================================================
+
 function renderEducationList() {
   const list = document.getElementById('education-list');
   if (!state.data.education.length) {
@@ -374,9 +345,7 @@ document.getElementById('btn-add-education').addEventListener('click', () => {
   schedulePreview();
 });
 
-// ============================================================
-// Projects List — render + event delegation
-// ============================================================
+
 function renderProjectsList() {
   const list = document.getElementById('projects-list');
   if (!state.data.projects.length) {
@@ -458,9 +427,7 @@ async function enhance(field, id) {
   let prompt = '';
   let currentValue = '';
 
-  // ============================================================
-  // SUMMARY
-  // ============================================================
+
 
   if (field === 'summary') {
 
@@ -477,9 +444,7 @@ ${currentValue}
 
   }
 
-  // ============================================================
-  // BULLETS
-  // ============================================================
+
 
   else if (field === 'bullets' && id) {
 
@@ -500,9 +465,7 @@ ${currentValue}
 
   }
 
-  // ============================================================
-  // SKILLS
-  // ============================================================
+
 
   else if (field === 'skills') {
 
@@ -518,9 +481,6 @@ ${currentValue}
 
   }
 
-  // ============================================================
-  // EMPTY CHECK
-  // ============================================================
 
   if (!currentValue || currentValue.trim() === '') {
 
@@ -538,9 +498,7 @@ ${currentValue}
 
   try {
 
-    // ============================================================
-    // API CALL
-    // ============================================================
+
 
 const response = await fetch(
   `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`,
@@ -569,9 +527,7 @@ const response = await fetch(
 
     console.log('Gemini Response:', result);
 
-    // ============================================================
-    // GET AI RESPONSE
-    // ============================================================
+
 
     const enhancedText =
       result?.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
@@ -580,9 +536,7 @@ const response = await fetch(
       throw new Error('No text returned from Gemini');
     }
 
-    // ============================================================
-    // UPDATE SUMMARY
-    // ============================================================
+
 
     if (field === 'summary') {
 
@@ -596,9 +550,6 @@ const response = await fetch(
       }
     }
 
-    // ============================================================
-    // UPDATE SKILLS
-    // ============================================================
 
     else if (field === 'skills') {
 
@@ -612,9 +563,7 @@ const response = await fetch(
       }
     }
 
-    // ============================================================
-    // UPDATE BULLETS
-    // ============================================================
+
 
     else if (field === 'bullets' && id) {
 
@@ -636,9 +585,7 @@ const response = await fetch(
       }
     }
 
-    // ============================================================
-    // REFRESH PREVIEW
-    // ============================================================
+
 
     schedulePreview();
 
@@ -667,7 +614,7 @@ const response = await fetch(
   }
 }
 
-// Sync the enhance button UI for summary/skills/bullets
+
 function syncEnhanceUI(field, id) {
   if (field === 'summary') {
     const btn    = document.getElementById('btn-enhance-summary');
@@ -680,7 +627,7 @@ function syncEnhanceUI(field, id) {
     btn.innerHTML = loading ? ICONS.spinnerSm : '✨ Optimize List';
     btn.disabled  = loading;
   } else if (field === 'bullets') {
-    // Re-render experience list so the per-card button updates
+   
     renderExperienceList();
   }
 }
@@ -688,9 +635,7 @@ function syncEnhanceUI(field, id) {
 document.getElementById('btn-enhance-summary').addEventListener('click', () => enhance('summary'));
 document.getElementById('btn-enhance-skills').addEventListener('click',  () => enhance('skills'));
 
-// ============================================================
-// PDF Download (mirrors downloadPdf in App.tsx)
-// ============================================================
+
 document.getElementById('btn-download').addEventListener('click', () => {
   const element = document.getElementById('preview-page');
   const opt = {
@@ -704,9 +649,7 @@ document.getElementById('btn-download').addEventListener('click', () => {
   addToast('Resume downloading...');
 });
 
-// ============================================================
-// Initialise (mirrors component mount + initial useEffect)
-// ============================================================
+
 function init() {
   renderTemplates();
   initPersonalInfoInputs();
