@@ -1,10 +1,18 @@
-# ResuBuild AI — Resume Builder
+ResuBuild AI — Resume Builder
+
+
+Live Demo → resubuild-ai.onrender.com
 
 A single-page resume builder with 6 professionally designed templates, live preview, Gemini-powered AI enhancement, and one-click PDF export. No login, no database — just build and download.
 
 ---
 
 ## Screenshots
+<img width="1919" height="958" alt="image" src="https://github.com/user-attachments/assets/16ba581e-c566-4f05-a2b3-c9c504bede97" />
+
+<img width="1919" height="960" alt="image" src="https://github.com/user-attachments/assets/b6ccd426-d868-4dcd-b8b5-81bd2465d647" />
+
+
 
 
 
